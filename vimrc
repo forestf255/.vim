@@ -8,7 +8,7 @@ syntax enable
 " For plugins to load correctly
 filetype plugin indent on
 
-let mapleader = ","
+let mapleader = ";"
 
 " Security
 set modelines=0
@@ -98,7 +98,21 @@ autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 
+" Native shortcuts
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+map <leader>j :bn<cr>
+map <leader>k :bp<cr>
+map <leader>d :bd<cr>
+
 " Plugin shortcuts
-map <leader>n :NERDTreeToggle<cr>
-map <leader>o :BufExplorer<cr>
-let g:ctrlp_map = '<c-f>'
+if v:version < 800
+  map <leader>n :Explore<cr>
+  map <leader>o :ls<cr>
+else
+  map <leader>n :NERDTreeToggle<cr>
+  map <leader>o :BufExplorer<cr>
+  let g:ctrlp_map = '<c-f>'
+endif
