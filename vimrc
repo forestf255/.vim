@@ -16,6 +16,15 @@ set modelines=0
 " Show relative line numbers
 set number
 set relativenumber
+" Toggle relative line numbers
+nnoremap <leader>r :call RelativeNumToggle()<cr>
+function! RelativeNumToggle()
+  if &relativenumber
+    set norelativenumber
+  else
+    set relativenumber
+  endif
+endfunction
 
 " Show file stats
 set ruler
