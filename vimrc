@@ -35,6 +35,15 @@ set shiftwidth=2
 set softtabstop=2
 set expandtab
 set noshiftround
+" Toggle line marker
+nnoremap <leader>c :call MarkColumnToggle()<cr>
+function! MarkColumnToggle()
+  if &colorcolumn
+    set colorcolumn=
+  else
+    set colorcolumn=80
+  endif
+endfunction
 
 " Cursor motion
 set scrolloff=3
