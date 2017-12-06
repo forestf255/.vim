@@ -78,8 +78,6 @@ set showmode
 set showcmd
 
 " Searching
-nnoremap / /\v
-vnoremap / /\v
 set hlsearch
 set incsearch
 set ignorecase
@@ -124,6 +122,8 @@ map <C-l> <C-W>l
 map <leader>j :bn<cr>
 map <leader>k :bp<cr>
 map <leader>d :bd<cr>
+
+:imap jk <Esc>
 
 " Plugin shortcuts
 if v:version < 800
