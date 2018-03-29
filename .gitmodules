@@ -16,3 +16,6 @@
 [submodule "pack/plugins/start/supertab"]
 	path = pack/plugins/start/supertab
 	url = https://github.com/ervandew/supertab.git
+[submodule "pack/plugins/opt/YouCompleteMe"]
+	path = pack/plugins/opt/YouCompleteMe
+	url = https://github.com/Valloric/YouCompleteMe.git
