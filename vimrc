@@ -121,3 +121,6 @@ else
   map <leader>o :BufExplorer<cr>
   let g:ctrlp_map = '<c-f>'
 endif
+
+:command Dark set background=dark | colorscheme solarized | let g:lightline = { 'colorscheme': 'solarized' }
+:command Light set background=light | colorscheme default | let g:lightline = { 'colorscheme': 'default' } | call lightline#init() | call lightline#colorscheme() | call lightline#update()
