@@ -90,9 +90,6 @@ set t_Co=256
 set background=dark
 colorscheme solarized
 
-" Change theme of light line bar
-let g:lightline = { 'colorscheme': 'solarized' }
-
 " Highlight trailing white space
 highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
@@ -112,6 +109,31 @@ map <leader>d :bd<cr>
 
 :imap jk <Esc>
 
+" Plugins
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+else
+  " Light / Dark Mode
+  :command Dark set background=dark | colorscheme solarized | let g:lightline = { 'colorscheme': 'solarized' }
+  :command Light set background=light | colorscheme default | let g:lightline = { 'colorscheme': 'default' } | call lightline#init() | call lightline#colorscheme() | call lightline#update()
+endif
+
+call plug#begin('~/.vim/plugged')
+Plug 'jlanzarotta/bufexplorer'
+Plug 'https://github.com/ctrlpvim/ctrlp.vim.git'
+Plug 'scrooloose/nerdtree'
+Plug 'https://github.com/itchyny/lightline.vim.git'
+Plug 'ervandew/supertab'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+call plug#end()
+
+" Change theme of light line bar
+let g:lightline = { 'colorscheme': 'solarized' }
+
 " Plugin shortcuts
 if v:version < 800
   map <leader>n :Explore<cr>
@@ -122,5 +144,3 @@ else
   let g:ctrlp_map = '<c-f>'
 endif
 
-:command Dark set background=dark | colorscheme solarized | let g:lightline = { 'colorscheme': 'solarized' }
-:command Light set background=light | colorscheme default | let g:lightline = { 'colorscheme': 'default' } | call lightline#init() | call lightline#colorscheme() | call lightline#update()
