@@ -128,7 +128,7 @@ Plug 'https://github.com/itchyny/lightline.vim.git'
 Plug 'ervandew/supertab'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+" Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 call plug#end()
 
 " Change theme of light line bar
