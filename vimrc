@@ -29,9 +29,6 @@ function! RelativeNumToggle()
   endif
 endfunction
 
-" Show file stats
-set ruler
-
 " Blink cursor on error instead of beeping (grr)
 set visualbell
 
@@ -39,16 +36,16 @@ set visualbell
 set encoding=utf-8
 
 " Whitespace
-set textwidth=79
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 set expandtab
 set autoindent
 
-" Specific format for pyhton files
-autocmd BufNewFile,BufRead *.py
-  \ set tabstop=4 shiftwidth=4 softtabstop=4
+" Specific format for python files
+autocmd Filetype python set tabstop=4 shiftwidth=4 softtabstop=4
+autocmd Filetype c set textwidth=79
+autocmd Filetype cpp set textwidth=79
 
 " Toggle line marker
 nnoremap <leader>c :call MarkColumnToggle()<cr>
@@ -86,9 +83,12 @@ set listchars=tab:▸\ ,eol:¬
 map <leader>l :set list!<CR> " Toggle tabs and EOL
 
 " Color scheme (terminal)
-set t_Co=256
-set background=dark
-colorscheme solarized
+set termguicolors
+set background=light
+let g:gruvbox_contrast_light = 'hard'
+let g:gruvbox_contrast_dark = 'soft'
+colorscheme gruvbox
+let g:lightline = { 'colorscheme': 'gruvbox' }
 
 " Highlight trailing white space
 highlight ExtraWhitespace ctermbg=red guibg=red
@@ -116,8 +116,8 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 else
   " Light / Dark Mode
-  :command Dark set background=dark | colorscheme solarized | let g:lightline = { 'colorscheme': 'solarized' }
-  :command Light set background=light | colorscheme default | let g:lightline = { 'colorscheme': 'default' } | call lightline#init() | call lightline#colorscheme() | call lightline#update()
+  :command Dark set background=dark | colorscheme gruvbox | let g:lightline = { 'colorscheme': 'gruvbox' } | call lightline#init() | call lightline#colorscheme() | call lightline#update()
+  :command Light set background=light | colorscheme gruvbox | let g:lightline = { 'colorscheme': 'gruvbox' } | call lightline#init() | call lightline#colorscheme() | call lightline#update()
 endif
 
 call plug#begin('~/.vim/plugged')
@@ -131,16 +131,7 @@ Plug 'tpope/vim-fugitive'
 " Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 call plug#end()
 
-" Change theme of light line bar
-let g:lightline = { 'colorscheme': 'solarized' }
-
 " Plugin shortcuts
-if v:version < 800
-  map <leader>n :Explore<cr>
-  map <leader>o :ls<cr>
-else
-  map <leader>n :NERDTreeToggle<cr>
-  map <leader>o :BufExplorer<cr>
-  let g:ctrlp_map = '<c-f>'
-endif
-
+map <leader>n :NERDTreeToggle<cr>
+map <leader>o :BufExplorer<cr>
+let g:ctrlp_map = '<c-f>'
