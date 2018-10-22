@@ -42,7 +42,7 @@ set softtabstop=2
 set expandtab
 set autoindent
 
-" Specific format for python files
+" Filetype specific small changes here
 autocmd Filetype python set tabstop=4 shiftwidth=4 softtabstop=4
 autocmd Filetype c set textwidth=79
 autocmd Filetype cpp set textwidth=79
@@ -83,12 +83,15 @@ set listchars=tab:▸\ ,eol:¬
 map <leader>l :set list!<CR> " Toggle tabs and EOL
 
 " Color scheme (terminal)
-set termguicolors
-set background=light
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
+set background=dark
 let g:gruvbox_contrast_light = 'hard'
 let g:gruvbox_contrast_dark = 'soft'
 colorscheme gruvbox
-let g:lightline = { 'colorscheme': 'gruvbox' }
 
 " Highlight trailing white space
 highlight ExtraWhitespace ctermbg=red guibg=red
@@ -116,19 +119,20 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 else
   " Light / Dark Mode
-  :command Dark set background=dark | colorscheme gruvbox | let g:lightline = { 'colorscheme': 'gruvbox' } | call lightline#init() | call lightline#colorscheme() | call lightline#update()
-  :command Light set background=light | colorscheme gruvbox | let g:lightline = { 'colorscheme': 'gruvbox' } | call lightline#init() | call lightline#colorscheme() | call lightline#update()
+  :command Dark set background=dark
+  :command Light set background=light
 endif
 
 call plug#begin('~/.vim/plugged')
 Plug 'jlanzarotta/bufexplorer'
 Plug 'https://github.com/ctrlpvim/ctrlp.vim.git'
 Plug 'scrooloose/nerdtree'
-Plug 'https://github.com/itchyny/lightline.vim.git'
+Plug 'vim-airline/vim-airline'
 Plug 'ervandew/supertab'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
-" Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+Plug 'rhysd/vim-wasm'
+Plug 'morhetz/gruvbox'
 call plug#end()
 
 " Plugin shortcuts
