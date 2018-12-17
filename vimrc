@@ -133,9 +133,20 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'rhysd/vim-wasm'
 Plug 'morhetz/gruvbox'
+Plug 'vim-syntastic/syntastic'
 call plug#end()
 
 " Plugin shortcuts
 map <leader>n :NERDTreeToggle<cr>
 map <leader>o :BufExplorer<cr>
 let g:ctrlp_map = '<c-f>'
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 2
+let g:syntastic_mode_map = {"mode": "passive"}
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+let g:syntastic_auto_jump = 2
+
+map <leader>e :SyntasticCheck<cr>
+
