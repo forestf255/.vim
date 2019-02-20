@@ -124,29 +124,52 @@ else
 endif
 
 call plug#begin('~/.vim/plugged')
-Plug 'jlanzarotta/bufexplorer'
 Plug 'https://github.com/ctrlpvim/ctrlp.vim.git'
-Plug 'scrooloose/nerdtree'
+Plug 'jlanzarotta/bufexplorer'
 Plug 'vim-airline/vim-airline'
 Plug 'ervandew/supertab'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-fugitive'
-Plug 'rhysd/vim-wasm'
 Plug 'morhetz/gruvbox'
-Plug 'vim-syntastic/syntastic'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'skywind3000/gutentags_plus'
+Plug 'w0rp/ale'
+Plug 'svermeulen/vim-cutlass'
 call plug#end()
 
+let g:ale_lint_delay = 3000
+
+nnoremap m d
+xnoremap m d
+
+nnoremap mm dd
+nnoremap M D
+
+" enable gtags module
+let g:gutentags_modules = ['ctags', 'gtags_cscope']
+
+" config project root markers.
+let g:gutentags_project_root = ['.root']
+
+" generate datebases in my cache directory, prevent gtags files polluting my project
+let g:gutentags_cache_dir = expand('~/.cache/tags')
+
+" change focus to quickfix window after search (optional).
+let g:gutentags_plus_switch = 1
+
 " Plugin shortcuts
-map <leader>n :NERDTreeToggle<cr>
 map <leader>o :BufExplorer<cr>
 let g:ctrlp_map = '<c-f>'
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 2
-let g:syntastic_mode_map = {"mode": "passive"}
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-let g:syntastic_auto_jump = 2
+" Use rg for grep searches
+if executable('rg')
+  set grepprg=rg\ --color=never
+  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+  let g:ctrlp_use_caching = 0
+endif
 
-map <leader>e :SyntasticCheck<cr>
-
+" Ignore these from rg search
+set wildignore+=*/.git/*,*/tmp/*,*.swp
+" Always color rg output
+set grepprg=grep\ --color=always\ -n\ $*\ /dev/null
